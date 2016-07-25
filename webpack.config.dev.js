@@ -12,7 +12,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/'
   },
   module: {
     preLoaders: [
@@ -50,7 +50,7 @@ module.exports = {
       template: './client/index.template.html',
       filename: 'index.html',
       appMountId: 'main',
-      inject: false,
+      inject: 'body',
       files: {
         css: ['assets/main.css']
       }
