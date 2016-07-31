@@ -8,7 +8,7 @@ module.exports = {
   devtool: 'source-map',
   entry: [
     
-    './client/app.js'
+    './client/index.js'
   ],
   output: {
     path: path.join(__dirname, 'dist'),

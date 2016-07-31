@@ -7,13 +7,17 @@ module.exports = {
   devtool: 'source-map',
   entry: [
     'webpack-hot-middleware/client',
-    './client/app.js'
+    './client/index.js'
   ],
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
     publicPath: '/'
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx'],
+  },
+  debug: true,
   module: {
     preLoaders: [
       {
@@ -28,7 +32,8 @@ module.exports = {
     {
       test: /\.jsx?$/,
       loaders: ['babel'],
-      include: path.join(__dirname, 'client')
+      include: path.join(__dirname, 'client'),
+      exclude: [/node_modules/]
     },
     // CSS
     {
@@ -37,6 +42,9 @@ module.exports = {
       loaders: ['style', 'css?sourceMap', 'postcss?sourceMap', 'sass?sourceMap'],
     },
     ]
+  },
+  postcss: function() {
+    return [autoprefixer]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
