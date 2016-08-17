@@ -12,7 +12,6 @@ var MongoStore = require('connect-mongo')(session);
 // *************************************************
 //     A P P   I N I T I A L I Z A T I O N
 // *************************************************
-
 //create app
 var app = express();
 
@@ -22,7 +21,7 @@ var db = mongoose.connection;
 
 //session options
 var sessionOptions = {
-  secret: "this is a super secret",
+  secret: "this is a super secret", // the most secret of secrets
   resave: true,
   saveUninitialized: true,
   store: new MongoStore({
@@ -43,8 +42,13 @@ app.use(passport.session());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// *************************************************
+//     A P P   R O U T E S
+// *************************************************
 // include routes
-var routes = require('./router/index');
+var auth = require('./router/auth');
+
+app.use('/auth', auth);
 
 // listen on port 3000
 app.listen(3000, function () {
