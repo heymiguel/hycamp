@@ -10,6 +10,9 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
+// *************************************************
+//     C O N F I G U R E   S T R A T E G I E S
+// *************************************************
 // Configure GitHub Strategy
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
@@ -29,7 +32,7 @@ passport.use(new GitHubStrategy({
       upsert: true, 
     }, done());
   } else {
-    var noEmailError = new Error("Your email privacy settings prevent you from signing into hackeryou camp");
+    var noEmailError = new Error("Your email privacy settings prevent you from signing into hackeryou camp.");
 
     done(noEmailError, null);
   }
@@ -53,7 +56,7 @@ passprt.use(new FacebookStrategy({
       upsert: true, 
     }, done());
   } else {
-    var noEmailError = new Error("Your email privacy settings prevent you from signing into hackeryou camp");
+    var noEmailError = new Error("Your email privacy settings prevent you from signing into hackeryou camp.");
 
     done(noEmailError, null);}));
 
