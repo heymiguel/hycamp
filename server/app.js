@@ -73,6 +73,31 @@ var sessionOptions = {
   }),
 };
 
+// Configure facebook strategy
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+  callbackURL: 'http://localhost:3000/auth/facebook/return',
+}, function(accessToken, refreshToken, profile, done) {
+  if (profile.emails[0]) {
+    User.findOneAndUpdate({
+      email: profilxe.emails[0].value,
+    },
+    {
+      name: profile.displayName || profile.username,
+      email: profile.emails[0].value,
+      photo: profile.photos[0].value,
+    },
+    {
+      upsert: true, 
+    }, done());
+  } else {
+    var noEmailError = new Error("Your email privacy settings prevent you from signing into hackeryou camp.");
+
+    done(noEmailError, null);
+  }
+}));
+
 //run session cache
 app.use(session(sessionOptions));
 

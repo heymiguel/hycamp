@@ -7,7 +7,7 @@ router.get('/login/github',
   passport.authenticate('github'));
 
 // GET /auth/login/facebok
-router.get('/login/facebok',
+router.get('/login/facebook',
   passport.authenticate('facebook'));
 
 // GET /auth/login/github
