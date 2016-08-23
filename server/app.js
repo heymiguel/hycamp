@@ -10,6 +10,9 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
+// global variable
+var LOCAL_MONGO_DB = "mongodb://localhost:27017/hycamp";
+
 // *************************************************
 //     C O N F I G U R E   S T R A T E G I E S
 // *************************************************
@@ -38,7 +41,8 @@ passport.use(new GitHubStrategy({
   }
 }));
 
-passprt.use(new FacebookStrategy({
+// Configure facebook strategy
+passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_CLIENT_ID,
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   callbackURL: 'http://localhost:3000/auth/facebook/return',
@@ -76,7 +80,7 @@ passport.deserializeUser(function(userId, done) {
 var app = express();
 
 //create MongoDB connection
-mongoose.connect("mongodb://localhost:27017/hycamp");
+mongoose.connect(LOCAL_MONGO_DB); // basic local connection
 var db = mongoose.connection;
 
 //session options
