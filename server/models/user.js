@@ -17,11 +17,6 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  favoriteBook: {
-    type: String,
-    required: true,
-    trim: true,
-  },
 });
 
 //authenticate input against database documents
