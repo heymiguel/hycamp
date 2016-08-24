@@ -1,0 +1,43 @@
+@import '../styles/variables';
+
+.top-nav {
+	display: flex;
+	width: 100%;
+	.top-nav-item {
+		color: $light-grey;
+		background: $charcoal;
+		flex: 0 0 33.333%;
+		margin-right: 5px;
+		text-align: center;
+		height: 48px;
+		font-size: 16px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		&:last-of-type {
+			margin-right: 0;
+		}
+		&:hover {
+			text-decoration: none;
+			background: darken($charcoal, 10);
+		}
+		&:active, &:focus {
+			text-decoration: none;
+		}
+		.glyphicon {
+			padding-right: 8px;
+			font-size: 24px;
+		}
+	}
+	.active {
+		color: white;
+		background: $red;
+		&:hover {
+			text-decoration: none;
+			background: darken($red, 10);
+		}
+		&:active, &:focus {
+			text-decoration: none;
+		}
+	}
+}
