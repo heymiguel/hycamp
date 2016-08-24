@@ -2,6 +2,10 @@ import React, { PropTypes } from 'react';
 
 import { Link } from 'react-router';
 
+import { Glyphicon } from 'react-bootstrap';
+
+import './TopNav.scss';
+
 const propTypes = {
   // proptypes go here
 };
@@ -12,11 +16,19 @@ const defaultProps = {
 
 export default function TopNav(props) {
   return (
-    <div>
-      <Link to="/">Events</Link>
-      <Link to="/leaderboard">Leaderboard</Link>
-      <Link to="/feed">Feed</Link>
-    </div>
+    <nav className="top-nav">
+      <Link to="/" className="top-nav-item" activeClassName="active" onlyActiveOnIndex>
+        <Glyphicon glyph="calendar" />
+        <span>Events</span>
+      </Link>
+      <Link to="/leaderboard" className="top-nav-item" activeClassName="active">
+        <Glyphicon glyph="king" /><span>Scores</span>
+      </Link>
+      <Link to="/feed" className="top-nav-item" activeClassName="active">
+        <Glyphicon glyph="camera" />
+        <span>Feed</span>
+      </Link>
+    </nav>
   );
 }
 
