@@ -2,3 +2,9 @@
 @import 'base/reset';
 @import 'base/defaults';
 @import 'base/typography';
+
+.primary-bar {
+	background-color: $primary;
+	color: white;
+	padding: 5px;
+}
