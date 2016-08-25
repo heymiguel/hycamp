@@ -3,6 +3,8 @@ import { Grid, Row, Col, Clearfix } from 'react-bootstrap';
 
 import Event from './Event.jsx';
 
+import './Events.scss';
+
 const propTypes = {
   // proptypes go here
 };
@@ -13,10 +15,12 @@ const defaultProps = {
 
 export default function EventDay(props) {
   return (
-    <div>
+    <div className="event-day">
       <Row>
-        <Col xs={7} className="primary-bar">
-          OneDay
+        <Col xs={7}>
+          <div className="primary-bar">
+            <h4>OneDay</h4>
+          </div>
         </Col>
       </Row>
       <Event />

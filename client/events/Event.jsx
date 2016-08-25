@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Grid, Row, Col, Clearfix } from 'react-bootstrap';
+import { Glyphicon, Grid, Row, Col, Clearfix } from 'react-bootstrap';
 
 const propTypes = {
   // proptypes go here
@@ -12,9 +12,10 @@ const defaultProps = {
 export default function Event(props) {
   return (
     
+      <div className="event">
       <Row>
-        <Col xs={2}>
-          12:00p
+        <Col xs={2} className="text-center">
+          <Glyphicon glyph="star-empty" /> 12:00p
         </Col>
         <Col xs={5}>
           Event Title
@@ -23,6 +24,7 @@ export default function Event(props) {
           Event Location
         </Col>
       </Row>
+      </div>
       
   );
 }

@@ -5,6 +5,8 @@ import { Grid, Row, Col, Clearfix } from 'react-bootstrap';
 import FavoriteEvent from './FavoriteEvent.jsx';
 import EventDay from './EventDay.jsx';
 
+import './Events.scss';
+
 const propTypes = {
   // proptypes
 };
@@ -26,24 +28,30 @@ export default class EventsContainer extends React.Component {
     return (
       <Grid>
         <Row>
-          <Col lg={12}>
-            <h1 className="text-center">Events Container</h1>
-          </Col>
-        </Row>
-        <Row className="primary-bar">
-          <Col xs={2} md={2} lg={2}>
-            Time
-          </Col>
-          <Col xs={5} md={5}>
-            Event
-          </Col>
-          <Col xs={5} md={5}>
-            Location
+          <Col xs={12}>
+            <div className="primary-bar">
+              <Row>
+                <Col xs={3} md={2} lg={2}>
+                  <h5 className="text-center header">Time</h5>
+                </Col>
+                <Col xs={4} md={5}>
+                  <h5 className="header">Event</h5>
+                  
+                </Col>
+                <Col xs={5} md={5}>
+                  <h5 className="header">Location</h5>
+                </Col>
+              </Row>
+            </div>
           </Col>
         </Row>
 
-        <FavoriteEvent />
-        <FavoriteEvent />
+        <div className="event-favorite-container">
+
+          <FavoriteEvent />
+          <FavoriteEvent />
+
+        </div>
 
         <EventDay />
         <EventDay />
