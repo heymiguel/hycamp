@@ -2,3 +2,7 @@
 @import 'base/reset';
 @import 'base/defaults';
 @import 'base/typography';
+
+body {
+	font-family: $roboto;
+}

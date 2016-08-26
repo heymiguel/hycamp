@@ -6,16 +6,23 @@
 	.top-nav-item {
 		color: $light-grey;
 		background: $charcoal;
-		flex: 0 0 33.333%;
-		margin-right: 5px;
+		flex: 0 0 33.333333%;
 		text-align: center;
 		height: 48px;
-		font-size: 16px;
+		font-size: 26px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		border-left: 2px solid white;
+		border-right: 2px solid white;
+		text-transform: lowercase;
+		font-family: $lato;
+		font-weight: 100;
 		&:last-of-type {
-			margin-right: 0;
+			border-right: none;
+		}
+		&:first-of-type {
+			border-left: none;
 		}
 		&:hover {
 			text-decoration: none;
