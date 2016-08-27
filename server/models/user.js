@@ -8,19 +8,27 @@ var UserSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  oauthID: {
+    type: Number,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
     trim: true,
   },
-  password: {
-    type: String,
+  admin: {
+    type: Boolean,
+    required: true,
+  },
+  created: {
+    type: Date,
     required: true,
   },
 });
 
 //authenticate input against database documents
-UserSchema.statics.authenticate = function(email, password, callback) {
+UserSchema.statics.authenticate = (email, password, callback) => {
   User.findOne({ email: email })
     .exec(function (error, user) {
       if (error) {
@@ -42,7 +50,7 @@ UserSchema.statics.authenticate = function(email, password, callback) {
 }
 
 //hash password before saving
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', (next) => {
   var user = this;
   bcrypt.hash(user.password, 10, function(err, hash) {
     if (err) {
