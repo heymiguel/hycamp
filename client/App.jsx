@@ -9,6 +9,8 @@ const propTypes = {
 export default function App(props) {
   return (
     <div>
+      <a href="http://localhost:8080/auth/login/github">github</a>
+      <a href="http://localhost:8080/auth/login/facebook">facebook</a>
       <TopNav />
       {props.children}
     </div>
