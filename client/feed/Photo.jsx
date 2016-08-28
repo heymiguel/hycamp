@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import './Photo.scss';
 import linkify from 'linkify-instagram';
+import './Photo.scss';
 
 const propTypes = {
   photo: PropTypes.object.isRequired,
@@ -13,23 +13,25 @@ const defaultProps = {
 
 export default function Photo({ photo }) {
   return (
-    <div "photo-wrapper">
+    <div className="photo-wrapper">
       <div className="img-container">
         <img className="img" src={photo.thumbnail_gallery} alt={photo.text} />
       </div>
       <div className="img-details">
-        <div className="avatar-container">
+        <div className="author-details">
           <img
             className="avatar"
-            src={asset.user_avatar_url}
-            alt={asset.user_screen_name}
+            src={photo.user_avatar_url}
+            alt={photo.user_screen_name}
           />
-          <a href={`https://instagram.com/${asset.user_screen_name}`}>{asset.user_screen_name}</a>
+          <a className="user-name" href={`https://instagram.com/${photo.user_screen_name}`}>
+            @{photo.user_screen_name}
+          </a>
         </div>
-        <div 
-          className="caption" 
+        <div
+          className="caption"
           dangerouslySetInnerHTML={{
-            __html: linkify(asset.text)
+            __html: linkify(photo.text),
           }}
         />
       </div>

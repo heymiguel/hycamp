@@ -38,12 +38,17 @@ export default class FeedContainer extends React.Component {
     fetch(`/api/feed?offset=${this.state.offset}`, { method: 'GET' })
       .then(handleErrors)
       .then(data => {
+        console.log(data);
         this.setState({
-          photos: data.photos,
+          photos: data.data,
+          isFetching: false,
         });
       })
       .catch(err => {
         console.log(err);
+        this.setState({
+          isFetching: false,
+        });
       });
   }
 

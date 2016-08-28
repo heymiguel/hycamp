@@ -1,9 +1,29 @@
+@import '../styles/variables.scss';
+
 .photo-wrapper {
-
-}
-
-.img-container {
+	padding: 15px 0;
+	border-bottom: 1px solid $red;
+	a {
+		color: $red;
+	}
 	.img {
 		width: 100%;
 	}
+	.img-details {
+		margin-top: 15px;
+	}
+	.author-details {
+		margin-bottom: 15px;
+		display: flex;
+		align-items: center;
+	}
+	.avatar {
+		border-radius: 50%;
+	}
+	.user-name {
+		color: $red;
+		font-size: 20px;
+		margin-left: 15px;
+	}
 }
+
