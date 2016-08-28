@@ -32,65 +32,106 @@ module.exports = function(passport) {
     passport.use(new FacebookStrategy({
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      callbackURL: 'http://localhost:3000/auth/facebook/return',
-    }, (token, refreshToken, profile, done) => {
-      console.log(profile);
+      callbackURL: 'http://localhost:8080/auth/facebook/return',
+      profileFields: ["emails", "displayName"],
+      passReqToCallback : true, // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+    }, (req, token, refreshToken, profile, done) => {
       // asynchronous
       process.nextTick(() => {
-        // find the user in the database based on their facebook id
-        User.findOne({ 'facebook.id' : profile.id }, (err, user) => {
+        if (!req.user) {
+          // find the user in the database based on their facebook id
+          User.findOne({ 'facebook.id': profile.id }, (err, user) => {
             // if there is an error, stop everything and return that
             // ie an error connecting to the database
             if (err) return done(err);
-
-            // if the user is found, then log them in
+            // if the user is found to have a facebook id, then log them in
             if (user) {
-              return done(null, user); // user found, return that user
+              return done(null, user);
             } else {
               // if there is no user found with that facebook id, create them
-              var newUser            = new User();
+              var newUser = new User();
               // set all of the facebook information in our user model
-              newUser.facebook.id    = profile.id; // set the users facebook id                   
+              newUser.facebook.email = profile.emails[0].value;
+              newUser.facebook.id = profile.id; // set the users facebook id                   
               newUser.facebook.token = token; // we will save the token that facebook provides to the user                    
-              newUser.facebook.name  = `${profile.name.givenName} ${profile.name.familyName}`; // look at the passport user profile to see how names are returned
-              newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+              newUser.facebook.name = profile.displayName;
 
               // save our user to the database
               newUser.save(function(err) {
-                if (err)
-                    throw err;
-
+                if (err) throw err;
                 // if successful, return the new user
                 return done(null, newUser);
               });
-          }
-        });
+            }
+          });
+        } else {
+          // user already exists and we want to link accounts
+          var user = req.user;
+          //if the user exists and doesn't have a facebook ID, add it to their account
+          user.facebook.id = profile.id; // set the users facebook id                   
+          user.facebook.token = token; // we will save the token that facebook provides to the user                    
+          user.facebook.name = profile.displayName; // user name shown on facebook
+          user.facebook.email = profile.emails[0].value;
+
+          user.save((err) => {
+            if (err) throw err;
+
+            return done(null, user);
+          });
+        }
       });
     }));
 
-    // // Configure facebook strategy
-    // passport.use(new FacebookStrategy({
-    //   clientID: process.env.FACEBOOK_APP_ID,
-    //   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    //   callbackURL: 'http://localhost:3000/auth/facebook/return',
-    // }, (accessToken, refreshToken, profile, done) => {
-    //   console.log('testststststs');
-    //   if (profile.emails[0]) {
-    //     User.findOneAndUpdate({
-    //       email: profilxe.emails[0].value,
-    //     },
-    //     {
-    //       name: profile.displayName || profile.username,
-    //       email: profile.emails[0].value,
-    //       photo: profile.photos[0].value,
-    //     },
-    //     {
-    //       upsert: true, 
-    //     }, done());
-    //   } else {
-    //     const noEmailError = new Error("Your email privacy settings prevent you from signing into hackeryou camp.");
+    passport.use(new GitHubStrategy({
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: 'http://localhost:8080/auth/github/return',
+      passReqToCallback : true, // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+    }, (req, token, refreshToken, profile, done) => {
+      // asynchronous
+      process.nextTick(() => {
+        if (!req.user) {
+          // find the user in the database based on their github id
+          User.findOne({ 'github.id': profile.id }, (err, user) => {
+            // if there is an error, stop everything and return that
+            // ie an error connecting to the database
+            if (err) return done(err);
+            // if the user is found to have a github id, then log them in
+            if (user) {
+              return done(null, user);
+            } else {
+              // if there is no user found with that github id, create them
+              var newUser = new User();
+              // set all of the github information in our user model
+              newUser.github.email = profile.emails[0].value;;
+              newUser.github.id = profile.id; // set the users github id                   
+              newUser.github.token = token; // we will save the token that github provides to the user                    
+              newUser.github.name = profile.displayName;
 
-    //     done(noEmailError, null);
-    //   }
-    // }));
+              // save our user to the database
+              newUser.save(function(err) {
+                if (err) throw err;
+                // if successful, return the new user
+                return done(null, newUser);
+              });
+            }
+          });
+        } else {
+          // user already exists and we want to link accounts
+          var user = req.user;
+          //if the user exists and doesn't have a github ID, add it to their account
+          user.github.id = profile.id; // set the users github id                   
+          user.github.token = token; // we will save the token that github provides to the user                    
+          user.github.name = profile.displayName; // user name shown on github
+          user.github.email = profile.emails[0].value;;
+
+          user.save((err) => {
+            if (err) throw err;
+
+            return done(null, user);
+          });
+        }
+      });
+    }));
 };
+
