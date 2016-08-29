@@ -6,7 +6,7 @@ const GitHubStrategy = require('passport-github2').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 
 // load up the user model
-var User            = require('../models/user');
+var User = require('../models/user');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
