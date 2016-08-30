@@ -39,9 +39,14 @@ module.exports = {
     // CSS
     { 
       test: /\.scss$/, 
-      include: path.join(__dirname, 'client'),
-      loader: 'style-loader!css-loader!stylus-loader'
-    }
+      include: [path.join(__dirname, 'client'), path.join(__dirname, 'styles')],
+      loaders: ['style', 'css?sourceMap', 'postcss?sourceMap', 'sass?sourceMap'],
+    },
+    // ICON FONT
+    {
+      test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+      loader: 'file-loader?name=assets/font/[name].[ext]',
+    },
     ]
   },
   resolve: {
@@ -57,7 +62,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'app/index.template.html',
+      template: 'client/index.template.html',
       filename: 'index.html',
       appMountId: 'main',
       inject: false,
@@ -68,7 +73,6 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env": {
         "NODE_ENV": JSON.stringify('production'),
-        "BASE_URL": JSON.stringify(process.env.BASE_URL.toString()),
       }
     }),
     new ExtractTextPlugin('assets/main.css'),

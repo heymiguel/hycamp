@@ -18,14 +18,14 @@ export default function TopNav(props) {
   return (
     <nav className="top-nav">
       <Link to="/" className="top-nav-item" activeClassName="active" onlyActiveOnIndex>
-        <Glyphicon glyph="calendar" />
+        <i className="icon-calendar nav-icon" />
         <span>Events</span>
       </Link>
       <Link to="/leaderboard" className="top-nav-item" activeClassName="active">
-        <Glyphicon glyph="king" /><span>Scores</span>
+        <i className="icon-trophy nav-icon" /><span>Scores</span>
       </Link>
       <Link to="/feed" className="top-nav-item" activeClassName="active">
-        <Glyphicon glyph="camera" />
+        <i className="icon-camera nav-icon" />
         <span>Feed</span>
       </Link>
     </nav>
