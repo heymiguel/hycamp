@@ -20,8 +20,8 @@ export default function TopNav(props) {
       <Row>
         <Col xs={12}>
           <nav className="top-nav">
-            <a href="http://localhost:8080/auth/login/github">github</a>
-            <a href="http://localhost:8080/auth/login/facebook">facebook</a>
+            <a href="http://localhost:3000/auth/login/github">github</a>
+            <a href="http://localhost:3000/auth/login/facebook">facebook</a>
             <Link to="/" className="top-nav-item" activeClassName="active" onlyActiveOnIndex>
               <Glyphicon glyph="calendar" />
               <span>Events</span>

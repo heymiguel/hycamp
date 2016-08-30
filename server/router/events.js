@@ -2,8 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 
-const Event = require('../models/event');
+const Event = require('../models/events');
 
+// GET /getEvents
 router.get('/getEvents', (req, res, done) => {
   //find all the events from the database
   const events = Event.find({}, (err, events) => {
@@ -15,30 +16,40 @@ router.get('/getEvents', (req, res, done) => {
   });
 });
 
+// POST /createEvent
 router.post('/createEvent', (req, res, done) => {
-  const { createdBy, date, label } = req.body;
+  const { createdBy, label } = req.body;
+  // create a date for the event
+  const dateCreated = Date.now();
 
+  //
   const newEvent =  new Event({
-    date,
+    dateCreated,
     createdBy,
     label,
   });
 
   newEvent.save((err) => {
-    if (err) throw err;
+    if (err) res.status(400).json(err);
 
-    console.log('event created!');
-  })
+    res.status(200).json(newEvent);
+  });
 
   done();
 });
 
+// POST /deleteEvent
 router.post('/deleteEvent', (req, res, done) => {
+  const { id }  = req.body;
 
-});
+  // find an event by its ID and remove it
+  Event.findByIdAndRemove(id, {}, (err) => {
+    // if there is an error, return it
+    if (err) res.status(400).json(err);
 
-router.post('/updateEvent', (req, res, done) => {
-
+    // otherwise send back the the ID of the removed object
+    res.status(200).json(id);
+  });
 });
 
 module.exports = router;

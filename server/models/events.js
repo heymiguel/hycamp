@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const EventSchema = new mongoose.Schema({
-  date: {
+  dateCreated: {
+    type: Date,
+    required: true,
+  },
+  eventDate: {
     type: Date,
     required: true,
   },
