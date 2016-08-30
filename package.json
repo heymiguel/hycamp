@@ -55,6 +55,8 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-session": "^1.14.0",
+    "isomorphic-fetch": "^2.2.1",
+    "linkify-instagram": "^0.6.2",
     "mongo-connect": "0.0.6",
     "mongoose": "^4.5.8",
     "passport": "^0.3.2",

@@ -1,0 +1,18 @@
+header {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 10;
+	background: white;
+	+ .container {
+		padding-top: 64px;
+	}
+}
+.fixed-bar {
+	position: fixed;
+	width: 100%;
+	z-index: 10;
+}
+.row.with-fixed-bar {
+	margin-top: 30px;
+}
