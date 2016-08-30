@@ -10,7 +10,6 @@ module.exports = (app, passport) => {
       failureRedirect : 'http://localhost:3000/'
     }));
 
-
   // =====================================
   // FACEBOOK ROUTES =====================
   // =====================================
@@ -22,16 +21,10 @@ module.exports = (app, passport) => {
     passport.authenticate('facebook', {
       successRedirect : 'http://localhost:3000/',
       failureRedirect : 'http://localhost:3000/'
-    }),
-    (req, res) => {
-      res.redirect('/');
-    }
-  );
+    }));
 
   app.get('auth/logout', function(req, res) {
     req.logout();
     res.redirect('/');
   });
 };
-
-
