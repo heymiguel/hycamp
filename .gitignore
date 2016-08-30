@@ -11,3 +11,5 @@ public
 *.pyc
 *.rdb
 *.swp
+
+server/config/index.js

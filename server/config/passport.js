@@ -6,7 +6,7 @@ const GitHubStrategy = require('passport-github2').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 
 // load up the user model
-var User            = require('../models/user');
+var User = require('../models/user');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -32,7 +32,7 @@ module.exports = function(passport) {
     passport.use(new FacebookStrategy({
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      callbackURL: 'http://localhost:8080/auth/facebook/return',
+      callbackURL: 'http://localhost:3000/auth/facebook/return',
       profileFields: ["emails", "displayName"],
       passReqToCallback : true, // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     }, (req, token, refreshToken, profile, done) => {
@@ -60,6 +60,7 @@ module.exports = function(passport) {
               newUser.save(function(err) {
                 if (err) throw err;
                 // if successful, return the new user
+                res.status(200).json(newUser);
                 return done(null, newUser);
               });
             }
@@ -76,6 +77,7 @@ module.exports = function(passport) {
           user.save((err) => {
             if (err) throw err;
 
+            res.status(200).json(user);
             return done(null, user);
           });
         }
@@ -85,7 +87,7 @@ module.exports = function(passport) {
     passport.use(new GitHubStrategy({
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: 'http://localhost:8080/auth/github/return',
+      callbackURL: 'http://localhost:3000/auth/github/return',
       passReqToCallback : true, // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     }, (req, token, refreshToken, profile, done) => {
       // asynchronous
@@ -112,6 +114,7 @@ module.exports = function(passport) {
               newUser.save(function(err) {
                 if (err) throw err;
                 // if successful, return the new user
+                res.status(200).json(newUser);
                 return done(null, newUser);
               });
             }
@@ -128,10 +131,10 @@ module.exports = function(passport) {
           user.save((err) => {
             if (err) throw err;
 
+            res.status(200).json(user);
             return done(null, user);
           });
         }
       });
     }));
 };
-
