@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 import linkify from 'linkify-instagram';
 import './Photo.scss';
 
@@ -10,33 +11,74 @@ const defaultProps = {
   // Default props go here
 };
 
+export default class Photo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.avatarLoaded = this.avatarLoaded.bind(this);
+    this.photoLoaded = this.photoLoaded.bind(this);
+    this.state = {
+      avatarLoaded: false,
+      photoLoaded: false,
+    };
+  }
 
-export default function Photo({ photo }) {
-  return (
-    <div className="photo-wrapper">
-      <div className="img-container">
-        <img className="img" src={photo.thumbnail_gallery} alt={photo.text} />
-      </div>
-      <div className="img-details">
-        <div className="author-details">
+  avatarLoaded() {
+    this.setState({
+      avatarLoaded: true,
+    });
+  }
+
+  photoLoaded() {
+    this.setState({
+      photoLoaded: true,
+    });
+  }
+
+  render() {
+    const { photo } = this.props;
+    const { avatarLoaded, avatarErr, photoErr, photoLoaded } = this.state;
+    return (
+      <div className="photo-wrapper">
+        <div className="img-container">
           <img
-            className="avatar"
-            src={photo.user_avatar_url}
-            alt={photo.user_screen_name}
+            className={classNames('img', {
+              loaded: photoLoaded,
+            })}
+            src={photo.thumbnail_gallery}
+            alt={photo.text}
+            onLoad={this.photoLoaded}
           />
-          <a className="user-name" href={`https://instagram.com/${photo.user_screen_name}`}>
-            @{photo.user_screen_name}
-          </a>
         </div>
-        <div
-          className="caption"
-          dangerouslySetInnerHTML={{
-            __html: linkify(photo.text),
-          }}
-        />
+        <div className="img-details">
+          <div className="author-details">
+            <div
+              className={classNames('avatar-wrapper', {
+                loaded: avatarLoaded,
+              })}
+            >
+              <img
+                className={classNames('avatar', {
+                  loaded: avatarLoaded,
+                })}
+                src={photo.user_avatar_url}
+                alt={photo.user_screen_name}
+                onLoad={this.avatarLoaded}
+              />
+            </div>
+            <a className="user-name" href={`https://instagram.com/${photo.user_screen_name}`}>
+              @{photo.user_screen_name}
+            </a>
+          </div>
+          <div
+            className="caption"
+            dangerouslySetInnerHTML={{
+              __html: linkify(photo.text),
+            }}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 Photo.propTypes = propTypes;

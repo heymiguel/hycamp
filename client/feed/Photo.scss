@@ -8,6 +8,11 @@
 	}
 	.img {
 		width: 100%;
+		opacity: 0;
+		transition: 0.3s all ease-in;
+		&.loaded {
+			opacity: 1;
+		}
 	}
 	.img-details {
 		margin-top: 15px;
@@ -17,8 +22,26 @@
 		display: flex;
 		align-items: center;
 	}
-	.avatar {
+	.avatar-wrapper {
+		width: 48px;
+		height: 48px;
 		border-radius: 50%;
+		background: $red;
+		transition: 0.1s all ease-in;
+		&.loaded {
+			background: rgba(0,0,0,0);
+		}
+	}
+	.avatar {
+		opacity: 0;
+		transition: 0.1s all ease-in;
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		display: block;
+		&.loaded {
+			opacity: 1;
+		}
 	}
 	.user-name {
 		color: $red;
