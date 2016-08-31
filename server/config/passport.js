@@ -60,7 +60,6 @@ module.exports = function(passport) {
               newUser.save(function(err) {
                 if (err) throw err;
                 // if successful, return the new user
-                res.status(200).json(newUser);
                 return done(null, newUser);
               });
             }
@@ -77,7 +76,6 @@ module.exports = function(passport) {
           user.save((err) => {
             if (err) throw err;
 
-            res.status(200).json(user);
             return done(null, user);
           });
         }
@@ -111,10 +109,9 @@ module.exports = function(passport) {
               newUser.github.name = profile.displayName;
 
               // save our user to the database
-              newUser.save(function(err) {
+              newUser.save(function(err, doc) {
                 if (err) throw err;
                 // if successful, return the new user
-                res.status(200).json(newUser);
                 return done(null, newUser);
               });
             }
@@ -131,8 +128,7 @@ module.exports = function(passport) {
           user.save((err) => {
             if (err) throw err;
 
-            res.status(200).json(user);
-            return done(null, user);
+            return done(null, user, user);
           });
         }
       });

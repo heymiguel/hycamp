@@ -6,9 +6,9 @@ module.exports = (app, passport) => {
 
   app.get('/auth/github/return', 
     passport.authenticate('github', {
-      successRedirect : 'http://localhost:3000/',
-      failureRedirect : 'http://localhost:3000/'
-    }));
+      successRedirect: 'http://localhost:3000/',
+      failureRedirect: 'http://localhost:3000/',
+  }));
 
   // =====================================
   // FACEBOOK ROUTES =====================
@@ -19,9 +19,13 @@ module.exports = (app, passport) => {
   // handle the callback after facebook has authenticated the user
   app.get('/auth/facebook/return',
     passport.authenticate('facebook', {
-      successRedirect : 'http://localhost:3000/',
-      failureRedirect : 'http://localhost:3000/'
+      successRedirect: 'http://localhost:3000/',
+      failureRedirect: 'http://localhost:3000/',
     }));
+
+  // app.get('/return/user', (req, res) => {
+  //   res.status(200).json(req.user);
+  // })
 
   app.get('auth/logout', function(req, res) {
     req.logout();
