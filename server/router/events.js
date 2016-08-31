@@ -7,7 +7,7 @@ const Event = require('../models/events');
 // GET /getEvents
 router.get('/getEvents', (req, res, done) => {
   //find all the events from the database
-  const events = Event.find({}, (err, events) => {
+  Event.find({}, (err, events) => {
     //if there is an error, respond with an error
     if (err) res.status(400).json(err);
 
@@ -80,7 +80,7 @@ router.post('/deleteEvent', (req, res, done) => {
 // POST /updateEvent
 router.post('/updateEvent', (req, res, done) => {
   const { id, data } = req.body;
-  // // find an event by its ID and update
+  // find an event by its ID and update
   Event.findOneAndUpdate({ _id: id }, data, { new: true }, (err, doc) => {
     // if there is an error, return it
     if (err) res.status(400).json(err);
