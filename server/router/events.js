@@ -18,13 +18,14 @@ router.get('/getEvents', (req, res, done) => {
 
 // POST /createEvent
 router.post('/createEvent', (req, res, done) => {
-  const { createdBy, label } = req.body;
+  const { createdBy, label, eventDate, location } = req.body;
   // create a date for the event
   const dateCreated = Date.now();
-
   //
   const newEvent =  new Event({
     dateCreated,
+    eventDate,
+    location,
     createdBy,
     label,
   });
