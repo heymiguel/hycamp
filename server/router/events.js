@@ -5,7 +5,7 @@ const router = express.Router();
 const Event = require('../models/events');
 
 // GET /getEvents
-router.get('/getEvents', (req, res, done) => {
+router.get('/getEvents', (req, res, next) => {
   //find all the events from the database
   Event.find({}, (err, events) => {
     //if there is an error, respond with an error
@@ -17,7 +17,7 @@ router.get('/getEvents', (req, res, done) => {
 });
 
 // POST /createEvent
-router.post('/createEvent', (req, res, done) => {
+router.post('/createEvent', (req, res, next) => {
   const { createdBy, label, eventDate, location } = req.body;
   // create a date for the event
   const dateCreated = Date.now();
@@ -26,24 +26,28 @@ router.post('/createEvent', (req, res, done) => {
   if (typeof createdBy !== 'string') {
     const err = 'expected createdBy to be a string';
     res.status(400).json(err);
+    return next();
   }
 
   // if label isn't a string, return an error
   if (typeof label !== 'string') {
     const err = 'expected label to be a string';
     res.status(400).json(err);
+    return next();
   }
 
   // if eventDate isn't a Date Object, return an error
   if (eventDate instanceof Date) {
     const err = 'expected eventDate to be a Date object';
     res.status(400).json(err);
+    return next();
   }
 
   // if location isn't a strng, return an error
   if (typeof location !== 'string') {
     const err = 'expected location to be a string';
     res.status(400).json(err);
+    return next();
   }
 
   const newEvent =  new Event({
@@ -60,12 +64,18 @@ router.post('/createEvent', (req, res, done) => {
     res.status(200).json(newEvent);
   });
 
-  done();
+  next();
 });
 
 // POST /deleteEvent
-router.post('/deleteEvent', (req, res, done) => {
+router.post('/deleteEvent', (req, res, next) => {
   const { id }  = req.body;
+
+  if (typeof id !== 'number') {
+    const err = 'expected if to be a number';
+    res.status(400).json(err);
+    return next();
+  }
 
   // find an event by its ID and remove it
   Event.findByIdAndRemove(id, {}, (err) => {
@@ -78,7 +88,7 @@ router.post('/deleteEvent', (req, res, done) => {
 });
 
 // POST /updateEvent
-router.post('/updateEvent', (req, res, done) => {
+router.post('/updateEvent', (req, res, next) => {
   const { id, data } = req.body;
   // find an event by its ID and update
   Event.findOneAndUpdate({ _id: id }, data, { new: true }, (err, doc) => {

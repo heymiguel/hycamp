@@ -17,9 +17,21 @@ router.get('/getCabins', (req, res) => {
 });
 
 
-// POST /updateScore
+// POST /updasteScore
 router.post('/updateScore', (req, res, next) => {
   const { id, score } = req.body;
+
+  if (typeof id !== 'number' ) {
+    const err = 'Expected id to be a number';
+    res.status(400).json(err);
+    return next();
+  }
+
+  if (typeof score !== 'number' ) {
+    const err = 'Expected score to be a number';
+    res.status(400).json(err);
+    return next();
+  }
 
   // find a cabin by its ID
   Cabin.findOneAndUpdate({ _id: id }, { score }, { new: true }, (err, doc) => {
