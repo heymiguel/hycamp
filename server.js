@@ -90,6 +90,12 @@ if (isDeveloping) {
     res.end();
   });
 } else {
+  // app.use('/assets', (req, res, next) => {
+  //   return next();
+  // }, express.static('public/assets'));
+  // app.use('/*', function response(req, res) {
+  //   res.sendFile(path.join(__dirname, 'public/index.html'));
+  // });
   app.use(express.static(__dirname + '/public'));
   app.get('*', function response(req, res) {
     res.sendFile(path.join(__dirname, 'public/index.html'));

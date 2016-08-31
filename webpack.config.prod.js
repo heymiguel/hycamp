@@ -11,9 +11,9 @@ module.exports = {
     './client/index.js'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, '/public'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -67,7 +67,8 @@ module.exports = {
       appMountId: 'main',
       inject: false,
       files: {
-        css: ['assets/main.css']
+        css: ['assets/main.css'],
+        js: ['assets/bundle.js'],
       }
     }),
     new webpack.DefinePlugin({
