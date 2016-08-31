@@ -21,7 +21,31 @@ router.post('/createEvent', (req, res, done) => {
   const { createdBy, label, eventDate, location } = req.body;
   // create a date for the event
   const dateCreated = Date.now();
-  //
+
+  // if createdBy isn't a string, return an error
+  if (typeof createdBy !== 'string') {
+    const err = 'expected createdBy to be a string';
+    res.status(400).json(err);
+  }
+
+  // if label isn't a string, return an error
+  if (typeof label !== 'string') {
+    const err = 'expected label to be a string';
+    res.status(400).json(err);
+  }
+
+  // if eventDate isn't a Date Object, return an error
+  if (eventDate instanceof Date) {
+    const err = 'expected eventDate to be a Date object';
+    res.status(400).json(err);
+  }
+
+  // if location isn't a strng, return an error
+  if (typeof location !== 'string') {
+    const err = 'expected location to be a string';
+    res.status(400).json(err);
+  }
+
   const newEvent =  new Event({
     dateCreated,
     eventDate,
