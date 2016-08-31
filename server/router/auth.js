@@ -7,7 +7,7 @@ module.exports = (app, passport) => {
   app.get('/auth/github/return', 
     passport.authenticate('github', {
       successRedirect: 'http://localhost:3000/',
-      failureRedirect: 'http://localhost:3000/'
+      failureRedirect: 'http://localhost:3000/',
   }));
 
   // =====================================
@@ -18,7 +18,7 @@ module.exports = (app, passport) => {
 
   // handle the callback after facebook has authenticated the user
   app.get('/auth/facebook/return',
-    passport.authenticate('facebook', (res, req) => {
+    passport.authenticate('facebook', {
       successRedirect: 'http://localhost:3000/',
       failureRedirect: 'http://localhost:3000/',
     }));
