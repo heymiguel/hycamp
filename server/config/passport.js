@@ -127,6 +127,7 @@ module.exports = function(passport) {
 
           user.save((err) => {
             if (err) throw err;
+            
             return done(null, user);
           });
         }
