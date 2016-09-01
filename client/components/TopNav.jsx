@@ -22,7 +22,6 @@ export default function TopNav(props) {
           <nav className="top-nav">
             <a href="http://localhost:3000/auth/login/github">github</a>
             <a href="http://localhost:3000/auth/login/facebook">facebook</a>
-            <a href="http://localhost:3000/api/user/getUser">session ting</a>
             <Link to="/" className="top-nav-item" activeClassName="active" onlyActiveOnIndex>
               <Glyphicon glyph="calendar" />
               <span>Events</span>
