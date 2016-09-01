@@ -9,9 +9,7 @@ module.exports = (app, passport) => {
       successRedirect: false,
       failureRedirect: '/',
   }), (req, res, next) => {
-      console.log(req.session);
-
-      res.redirect('/');
+      res.redirect('/?userSuccess');
     });
 
   // =====================================
