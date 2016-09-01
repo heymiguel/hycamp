@@ -6,5 +6,6 @@ const router = express.Router();
 router.use('/feed', require('./feed'));
 router.use('/leaderboard', require('./leaderboard'));
 router.use('/events', require('./events'));
+router.use('/user', require('./user'));
 
 module.exports = router;
