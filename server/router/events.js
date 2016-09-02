@@ -10,7 +10,7 @@ router.get('/getEvents', (req, res, next) => {
   Event.find({}, (err, events) => {
     //if there is an error, respond with an error
     if (err) res.status(400).json(err);
-
+    console.log(events);
     //else send all the events to the requester
     res.status(200).json(events);
   });
@@ -22,9 +22,9 @@ router.post('/createEvent', (req, res, next) => {
   // create a date for the event
   const dateCreated = Date.now();
 
-  // if createdBy isn't a string, return an error
+  // if label isn't a string, return an error
   if (typeof createdBy !== 'string') {
-    const err = 'expected createdBy to be a string';
+    const err = 'expected label to be a string';
     res.status(400).json(err);
     return next();
   }
@@ -71,8 +71,8 @@ router.post('/createEvent', (req, res, next) => {
 router.post('/deleteEvent', (req, res, next) => {
   const { id }  = req.body;
 
-  if (typeof id !== 'number') {
-    const err = 'expected if to be a number';
+  if (typeof id !== 'string') {
+    const err = 'expected if to be a string';
     res.status(400).json(err);
     return next();
   }
@@ -83,7 +83,7 @@ router.post('/deleteEvent', (req, res, next) => {
     if (err) res.status(400).json(err);
 
     // otherwise send back the the ID of the removed object
-    res.status(200).json(id);
+    res.status(200).json({id});
   });
 });
 
