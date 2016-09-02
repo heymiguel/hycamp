@@ -6,11 +6,9 @@ module.exports = (app, passport) => {
 
   app.get('/auth/github/return', 
     passport.authenticate('github', {
-      successRedirect: false,
-      failureRedirect: '/',
-  }), (req, res, next) => {
-      res.redirect('/?userSuccess');
-    });
+      successRedirect: '/?userSuccess',
+      failureRedirect: '/?userFailure',
+  }));
 
   // =====================================
   // FACEBOOK ROUTES =====================
@@ -21,8 +19,8 @@ module.exports = (app, passport) => {
   // handle the callback after facebook has authenticated the user
   app.get('/auth/facebook/return',
     passport.authenticate('facebook', {
-      successRedirect: 'http://localhost:3000/',
-      failureRedirect: 'http://localhost:3000/',
+      successRedirect: '/?userSuccess',
+      failureRedirect: '/?userFailure',
     }));
 
   // app.get('/return/user', (req, res) => {
