@@ -6,9 +6,11 @@ module.exports = (app, passport) => {
 
   app.get('/auth/github/return', 
     passport.authenticate('github', {
-      successRedirect: 'http://localhost:3000/',
-      failureRedirect: 'http://localhost:3000/',
-  }));
+      successRedirect: false,
+      failureRedirect: '/',
+  }), (req, res, next) => {
+      res.redirect('/?userSuccess');
+    });
 
   // =====================================
   // FACEBOOK ROUTES =====================

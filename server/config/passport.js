@@ -75,7 +75,7 @@ module.exports = function(passport) {
 
           user.save((err) => {
             if (err) throw err;
-
+            // add account to session for custom auth outside of passport
             return done(null, user);
           });
         }
@@ -127,8 +127,8 @@ module.exports = function(passport) {
 
           user.save((err) => {
             if (err) throw err;
-
-            return done(null, user, user);
+            
+            return done(null, user);
           });
         }
       });
