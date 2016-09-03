@@ -6,5 +6,6 @@ import { Router, browserHistory } from 'react-router';
 import Routes from './routes/';
 
 import css from './styles/main.scss';
+import './styles/icon-font.scss';
 
 render(<Router history={browserHistory} routes={Routes} />, document.getElementById('main'));
