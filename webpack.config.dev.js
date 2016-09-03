@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  context: __dirname,
   devtool: 'source-map',
   entry: [
     'webpack-hot-middleware/client',
@@ -38,14 +39,18 @@ module.exports = {
     // CSS
     {
       test: /\.scss$/,
-      include: [path.join(__dirname, 'client'), path.join(__dirname, 'styles')],
+      include: [path.join(__dirname, 'client')],
       loaders: ['style', 'css?sourceMap', 'postcss?sourceMap', 'sass?sourceMap'],
     },
     // Icon font
-    {
-      test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-      loader: 'file-loader?name=assets/fonts/[name].[ext]',
-    },
+    // {
+    //   test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+    //   include: [path.join(__dirname, 'client')],
+    //   loader: 'file-loader?name=public/fonts/[name].[ext]',
+    // },
+    { test: /\.svg$/, loader: 'url?limit=65000&mimetype=image/svg+xml&name=public/fonts/[name].[ext]' },
+    { test: /\.woff$/, loader: 'url?limit=65000&mimetype=application/font-woff&name=public/fonts/[name].[ext]' },
+    { test: /\.[ot]tf$/, loader: 'url?limit=65000&mimetype=application/octet-stream&name=public/fonts/[name].[ext]' },
     ]
   },
   postcss: function() {
