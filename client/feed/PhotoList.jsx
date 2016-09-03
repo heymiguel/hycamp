@@ -23,8 +23,8 @@ export default class PhotoList extends React.Component {
   }
 
   renderPhotos(photos, isFetching) {
-    if (!photos.length && !isFetching) {
-      return <div>No photos!</div>;
+    if (isFetching) {
+      return (<div key={2} className="loading">Loading!</div>);
     }
     return photos.map(photo => {
       return (<Photo
@@ -32,13 +32,6 @@ export default class PhotoList extends React.Component {
         photo={photo}
       />);
     });
-  }
-
-  renderLoader(isFetching) {
-    if (isFetching) {
-      return (<div className="loading">Loading!</div>);
-    }
-    return null;
   }
 
   render() {
@@ -54,7 +47,6 @@ export default class PhotoList extends React.Component {
         <Row className="with-fixed-bar">
           <Col xs={12}>
             {this.renderPhotos(this.props.photos, this.props.isFetching)}
-            {this.renderLoader(this.props.isFetching)}
           </Col>
         </Row>
       </Grid>

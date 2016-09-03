@@ -22,13 +22,13 @@ export default class Photo extends React.Component {
     };
   }
 
-  avatarLoaded() {
+  avatarLoaded(e) {
     this.setState({
       avatarLoaded: true,
     });
   }
 
-  photoLoaded() {
+  photoLoaded(e) {
     this.setState({
       photoLoaded: true,
     });
@@ -38,7 +38,7 @@ export default class Photo extends React.Component {
     const { photo } = this.props;
     const { avatarLoaded, avatarErr, photoErr, photoLoaded } = this.state;
     return (
-      <div className="photo-wrapper">
+      <div className="photo-wrapper" key={photo.uuid}>
         <div className="img-container">
           <img
             className={classNames('img', {

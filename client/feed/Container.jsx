@@ -29,7 +29,7 @@ export default class FeedContainer extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getPhotos();
   }
 
@@ -52,7 +52,7 @@ export default class FeedContainer extends React.Component {
 
   render() {
     return (
-      <PhotoList photos={this.state.photos} isFetching={this.state.isFetching} />
+      <PhotoList key="feed" photos={this.state.photos} isFetching={this.state.isFetching} />
     );
   }
 }
