@@ -30,7 +30,6 @@ returns an array of a single object which holds the user info dependant on the c
 
 Example response:
 ```Javascript
- data: [
   {
     id: 123123123,
     facebook: {
@@ -47,7 +46,6 @@ Example response:
     }
     favouriteEvents: [],
   }
- ];
 ```
 
 If there is no current browser session, an empty array will be returned.
@@ -84,12 +82,13 @@ example response:
 
 #### `POST /api/events/createEvent`
 
-required paramaters
+##### required paramaters
+
 | Param         | Type          | Example                    |    
 | ------------- |:-------------:| :--------------------------|
 | createdBy     | string        | 'Adore'                    |
 | label         | string        | 'Party'                    |
-| eventDate     | JS Date       | '' |
+| eventDate     | JS Date       | ''                         |
 | location      | string        | 'rooftops in paris, duh 💁'|
 
 exmaple response:
@@ -110,7 +109,7 @@ exmaple response:
 
 delete an event from the database based on its id number
 
-required paramaters
+##### required paramaters
 | Param         | Type          | Example                    |    
 | ------------- |:-------------:| :--------------------------|
 | id            | string        | '57c9954f89cd945fc81fe60e' |
@@ -126,7 +125,7 @@ example response
 
 returns all the cabins in an array of objects with their scores, members, and the id in the database
 
-example response:
+##### example response:
 ```javascript
   [
     {
@@ -141,7 +140,7 @@ example response:
 
 updates the score of the specified cabin in the database TO the score provided.
 
-required paramaters
+##### required paramaters
 | Param         | Type          | Example                    |    
 | ------------- |:-------------:| :--------------------------|
 | id            | string        | '57c9954f89cd945fc81fe60e' |

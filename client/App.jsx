@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import fetch from 'isomorphic-fetch';
 
+import fetch from 'isomorphic-fetch';
+
 import TopNav from './components/TopNav';
 
 
