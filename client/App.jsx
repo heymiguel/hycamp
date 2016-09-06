@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import fetch from 'isomorphic-fetch';
 
-import fetch from 'isomorphic-fetch';
-
 import TopNav from './components/TopNav';
-
+import Logo from './components/Logo';
+import GithubIcon from './components/GithubIcon';
+import FacebookIcon from './components/FacebookIcon';
 
 const propTypes = {
   children: PropTypes.node,
@@ -42,12 +42,38 @@ export default class App extends React.Component {
     });
   }
 
+  getName(user) {
+    if (!user) return null;
+    if (user.hasOwnProperty('github')) return user.github.name;
+    return user.facebook.name;
+  }
+
   render() {
+    const getName = this.state.user;
     return (
       <div className="root">
         <header>
-          <a href="http://localhost:3000/auth/login/github">github</a>
-          <a href="http://localhost:3000/auth/login/facebook">facebook</a>
+          <div className="login-bar">
+            <Logo />
+            <h1>Welcome to Camp!</h1>
+            { this.state.user ?
+              <div className="login-buttons">
+                {`Hi ${this.getName(this.state.user).split(' ')[0]}!`}
+              </div>
+              :
+              <div className="login-buttons">
+                <div className="login-buttons-label">
+                  Log in
+                </div>
+                <a className="login-button" href="/auth/login/github">
+                  <GithubIcon height={24} />
+                </a>
+                <a className="login-button" href="/auth/login/facebook">
+                  <FacebookIcon height={24} />
+                </a>
+              </div>
+            }
+          </div>
           <TopNav />
         </header>
         {this.props.children}
