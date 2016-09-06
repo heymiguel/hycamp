@@ -15,7 +15,6 @@ function fetchUser() {
         return response.json();
       })
       .then(data => {
-        console.log(data);
         resolve(data);
       })
       .catch(err => {
