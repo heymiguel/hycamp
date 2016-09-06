@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
@@ -32,11 +33,18 @@ const db = mongoose.connection;
 const sessionOptions = {
   secret: "this is a super secret", // the most secret of secrets
   resave: true,
-  saveUninitialized: true,
+  saveUninitialized: false,
+  cookie: { maxAge: 2 * 60 * 60 * 1000 },
   store: new MongoStore({
     mongooseConnection: db,
   }),
 };
+
+
+app.use(cookieParser('this is a super secret'));
+// parse incoming requests
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // passport configuration
 require('./server/config/passport')(passport); // pass passport for configuration
@@ -48,24 +56,12 @@ app.use(passport.initialize());
 //restore session
 app.use(passport.session());
 
-passport.serializeUser((user, done) => {
-  done(null, user._id);
-});
-
-passport.deserializeUser((userId, done) => {
-  User.findById(userId, done(err, user));
-});
-
-// parse incoming requests
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
 // *************************************************
 //     A P P   R O U T E S
 // *************************************************
-const apiRouter = require('./server/router');
 // include routes
 require('./server/router/auth')(app, passport); // load our routes and pass in our app and fully configured passport
+const apiRouter = require('./server/router');
 app.use('/api', apiRouter);
 
 if (isDeveloping) {
@@ -79,7 +75,7 @@ if (isDeveloping) {
       timings: true,
       chunks: false,
       chunkModules: false,
-      modules: false
+      modules: false,
     }
   });
 
@@ -90,12 +86,6 @@ if (isDeveloping) {
     res.end();
   });
 } else {
-  // app.use('/assets', (req, res, next) => {
-  //   return next();
-  // }, express.static('public/assets'));
-  // app.use('/*', function response(req, res) {
-  //   res.sendFile(path.join(__dirname, 'public/index.html'));
-  // });
   app.use(express.static(__dirname + '/public'));
   app.get('*', function response(req, res) {
     res.sendFile(path.join(__dirname, 'public/index.html'));
