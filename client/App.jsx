@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react';
 
+import fetch from 'isomorphic-fetch';
+
 import TopNav from './components/TopNav';
+
 
 const propTypes = {
   children: PropTypes.node,
@@ -8,10 +11,10 @@ const propTypes = {
 
 function fetchUser() {
   return new Promise((resolve, reject) => {
-    fetch('/api/user/getUser', { method: 'GET' })
+    fetch('http://localhost:3000/api/user/getUser', { method: 'GET', credentials: 'same-origin' })
       .then(response => {
         console.log(response.body);
-        response.json();
+        return response.json();
       })
       .then(data => {
         console.log(data);
