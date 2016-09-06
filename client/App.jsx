@@ -1,24 +1,24 @@
 import React, { PropTypes } from 'react';
+import fetch from 'isomorphic-fetch';
 
 import TopNav from './components/TopNav';
+
 
 const propTypes = {
   children: PropTypes.node,
 };
-
+  
 function fetchUser() {
   return new Promise((resolve, reject) => {
-    fetch('/api/user/getUser', { method: 'GET' })
+    fetch('/api/user/getUser', { credentials: 'same-origin' })
       .then(response => {
-        console.log(response.body);
-        response.json();
+        return response.json();
       })
       .then(data => {
         console.log(data);
         resolve(data);
       })
       .catch(err => {
-        console.log(err);
         reject(err);
       });
   });
@@ -34,10 +34,9 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('mounting');
     fetchUser().then(response => {
       this.setState({
-        user: response.data[0],
+        user: response,
       });
     });
   }

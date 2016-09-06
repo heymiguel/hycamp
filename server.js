@@ -40,11 +40,10 @@ const sessionOptions = {
   }),
 };
 
-
-app.use(cookieParser('this is a super secret'));
 // parse incoming requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser('this is a super secret'));
 
 // passport configuration
 require('./server/config/passport')(passport); // pass passport for configuration
