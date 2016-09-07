@@ -7,26 +7,47 @@ import './Events.scss';
 
 const propTypes = {
   // proptypes go here
+  events: PropTypes.array.isRequired,
+  day: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
   // Default props go here
 };
 
-export default function EventDay(props) {
-  return (
-    <div className="event-day">
-      <Row>
-        <Col xs={7}>
-          <div className="primary-bar">
-            <h4>OneDay</h4>
-          </div>
-        </Col>
-      </Row>
-      <Event />
-      <Event />
-    </div>
-  );
+export default class EventDay extends React.Component {
+
+  compare(a, b) {
+    return new Date(a.date).getTime() - new Date(b.date).getTime();
+  }
+
+  renderEvent(events) {
+    if (!events.length) {
+      return <div>No events!</div>;
+    }
+    return events.sort(this.compare).map(event => {
+      return (<Event
+        key={event.name}
+        event={event}
+      />);
+    });
+  }
+
+  render() {
+    const { day } = this.props;
+    return (
+      <div className="event-day">
+        <Row>
+          <Col xs={7}>
+            <div className="primary-bar">
+              <h4>{day}</h4>
+            </div>
+          </Col>
+        </Row>
+        {this.renderEvent(this.props.events)}
+      </div>
+    );
+  }
 }
 
 EventDay.propTypes = propTypes;
