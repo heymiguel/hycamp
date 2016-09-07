@@ -1,10 +1,12 @@
 import React, { PropTypes } from 'react';
 import fetch from 'isomorphic-fetch';
+import { Glyphicon } from 'react-bootstrap';
 
 import TopNav from './components/TopNav';
 import Logo from './components/Logo';
 import GithubIcon from './components/GithubIcon';
 import FacebookIcon from './components/FacebookIcon';
+
 
 const propTypes = {
   children: PropTypes.node,
@@ -12,7 +14,7 @@ const propTypes = {
   
 function fetchUser() {
   return new Promise((resolve, reject) => {
-    fetch('/api/user/getUser', { credentials: 'same-origin' })
+    fetch('/api/user/getUser', { method: 'GET', credentials: 'same-origin' })
       .then(response => {
         return response.json();
       })
@@ -37,8 +39,10 @@ export default class App extends React.Component {
   componentDidMount() {
     fetchUser().then(response => {
       this.setState({
-        user: response,
+        user: response.user,
       });
+    }).catch(err => {
+      console.log(err);
     });
   }
 
@@ -59,6 +63,10 @@ export default class App extends React.Component {
             { this.state.user ?
               <div className="login-buttons">
                 {`Hi ${this.getName(this.state.user).split(' ')[0]}!`}
+                <a className="login-button" href="/auth/logout">
+                  <Glyphicon glyph="log-out" />
+                </a>
+
               </div>
               :
               <div className="login-buttons">
