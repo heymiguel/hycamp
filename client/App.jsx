@@ -84,7 +84,9 @@ export default class App extends React.Component {
           </div>
           <TopNav />
         </header>
-        {this.props.children}
+        {React.Children.map(this.props.children, child => {
+          return React.cloneElement(child, { user: this.state.user });
+        })}
       </div>
     );
   }
