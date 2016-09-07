@@ -12,8 +12,9 @@ const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('./webpack.config.dev.js');
 
+
 // global constiable
-const LOCAL_MONGO_DB = "mongodb://localhost:27017/hycamp";
+const REMOTE_MONGO_DB = `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@ds035633.mlab.com:35633/bootcampfire`
 
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
@@ -26,7 +27,7 @@ const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 
 //create MongoDB connection
-mongoose.connect(LOCAL_MONGO_DB); // basic local connection
+mongoose.connect(REMOTE_MONGO_DB); // basic local connection
 const db = mongoose.connection;
 
 //session options
