@@ -5,7 +5,7 @@ header {
 	z-index: 10;
 	background: white;
 	+ .container {
-		padding-top: 64px;
+		padding-top: 90px;
 	}
 }
 .fixed-bar {
@@ -15,4 +15,23 @@ header {
 }
 .row.with-fixed-bar {
 	margin-top: 30px;
+}
+.login-bar {
+	display: flex;
+	padding: 5px 8px 5px 10px;
+	align-items: center;
+}
+.login-buttons {
+	display: flex;
+	margin-left: auto;
+	align-items: center;
+	.login-button {
+		display: flex;
+		margin-left: 8px;
+		align-items: center;
+	}
+}
+
+h1 {
+	padding-left: 8px;
 }

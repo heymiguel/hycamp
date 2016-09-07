@@ -9,8 +9,9 @@
 		flex: 0 0 33.333333%;
 		text-align: center;
 		height: 48px;
-		font-size: 26px;
+		font-size: 24px;
 		display: flex;
+		line-height: 1;
 		align-items: center;
 		justify-content: center;
 		border-left: 2px solid white;
@@ -31,9 +32,11 @@
 		&:active, &:focus {
 			text-decoration: none;
 		}
-		.glyphicon {
+		i {
 			padding-right: 8px;
-			font-size: 24px;
+		}
+		@include tiny {
+			font-size: 20px;
 		}
 	}
 	.active {

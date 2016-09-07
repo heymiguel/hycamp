@@ -27,7 +27,7 @@ module.exports = (app, passport) => {
   //   res.status(200).json(req.user);
   // })
 
-  app.get('auth/logout', function(req, res) {
+  app.get('/auth/logout', function(req, res) {
     req.logout();
     res.redirect('/');
   });

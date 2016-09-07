@@ -1,27 +1,27 @@
 import React, { PropTypes } from 'react';
-
 import fetch from 'isomorphic-fetch';
+import { Glyphicon } from 'react-bootstrap';
 
 import TopNav from './components/TopNav';
+import Logo from './components/Logo';
+import GithubIcon from './components/GithubIcon';
+import FacebookIcon from './components/FacebookIcon';
 
 
 const propTypes = {
   children: PropTypes.node,
 };
-
+  
 function fetchUser() {
   return new Promise((resolve, reject) => {
-    fetch('http://localhost:3000/api/user/getUser', { method: 'GET', credentials: 'same-origin' })
+    fetch('/api/user/getUser', { method: 'GET', credentials: 'same-origin' })
       .then(response => {
-        console.log(response.body);
         return response.json();
       })
       .then(data => {
-        console.log(data);
         resolve(data);
       })
       .catch(err => {
-        console.log(err);
         reject(err);
       });
   });
@@ -37,23 +37,56 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('mounting');
     fetchUser().then(response => {
       this.setState({
-        user: response.data[0],
+        user: response.user,
       });
+    }).catch(err => {
+      console.log(err);
     });
   }
 
+  getName(user) {
+    if (!user) return null;
+    if (user.hasOwnProperty('github')) return user.github.name;
+    return user.facebook.name;
+  }
+
   render() {
+    const getName = this.state.user;
     return (
       <div className="root">
         <header>
-          <a href="http://localhost:3000/auth/login/github">github</a>
-          <a href="http://localhost:3000/auth/login/facebook">facebook</a>
+          <div className="login-bar">
+            <Logo />
+            <h1>Welcome to Camp!</h1>
+            { this.state.user ?
+              <div className="login-buttons">
+                {`Hi ${this.getName(this.state.user).split(' ')[0]}!`}
+                <a className="login-button" href="/auth/logout">
+                  <Glyphicon glyph="log-out" />
+                </a>
+
+              </div>
+              :
+              <div className="login-buttons">
+                <div className="login-buttons-label">
+                  Log in
+                </div>
+                <a className="login-button" href="/auth/login/github">
+                  <GithubIcon height={24} />
+                </a>
+                <a className="login-button" href="/auth/login/facebook">
+                  <FacebookIcon height={24} />
+                </a>
+              </div>
+            }
+          </div>
           <TopNav />
         </header>
-        {this.props.children}
+        {React.Children.map(this.props.children, child => {
+          return React.cloneElement(child, { user: this.state.user });
+        })}
       </div>
     );
   }

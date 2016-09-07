@@ -10,7 +10,6 @@ router.get('/getEvents', (req, res, next) => {
   Event.find({}, (err, events) => {
     //if there is an error, respond with an error
     if (err) res.status(400).json(err);
-    console.log(events);
     //else send all the events to the requester
     res.status(200).json(events);
   });
