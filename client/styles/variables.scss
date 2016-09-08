@@ -1,0 +1,40 @@
+// +++++++++
+// Colors
+// +++++++++
+
+$blue: dodgerblue;
+$red: #D02026;
+$light-grey: #969696;
+$charcoal: #404040;
+$black: #060606;
+$white: #ffffff;
+
+// +++++++++
+// Fonts
+// +++++++++
+$roboto : 'Roboto Slab', serif;
+$lato: 'Lato', sans-serif;
+
+// Media queries
+$tiny: "(max-width: 350px)";
+$tablet: "(min-width: 768px)";
+$desktop: "(min-width: 1100px)";
+
+
+@mixin tiny {
+	@media #{$tiny} {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media #{$tablet} {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media #{$desktop} {
+		@content;
+	}
+}

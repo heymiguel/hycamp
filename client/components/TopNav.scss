@@ -1,0 +1,53 @@
+@import '../styles/variables';
+
+.top-nav {
+	display: flex;
+	width: 100%;
+	.top-nav-item {
+		color: $light-grey;
+		background: $charcoal;
+		flex: 0 0 33.333333%;
+		text-align: center;
+		height: 48px;
+		font-size: 24px;
+		display: flex;
+		line-height: 1;
+		align-items: center;
+		justify-content: center;
+		border-left: 2px solid white;
+		border-right: 2px solid white;
+		text-transform: lowercase;
+		font-family: $lato;
+		font-weight: 100;
+		&:last-of-type {
+			border-right: none;
+		}
+		&:first-of-type {
+			border-left: none;
+		}
+		&:hover {
+			text-decoration: none;
+			background: darken($charcoal, 10);
+		}
+		&:active, &:focus {
+			text-decoration: none;
+		}
+		i {
+			padding-right: 8px;
+		}
+		@include tiny {
+			font-size: 20px;
+		}
+	}
+	.active {
+		color: white;
+		background: $red;
+		&:hover {
+			text-decoration: none;
+			background: darken($red, 10);
+		}
+		&:active, &:focus {
+			text-decoration: none;
+		}
+	}
+}

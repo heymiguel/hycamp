@@ -1,0 +1,30 @@
+@import '../styles/variables';
+
+.primary-bar{
+	padding: 6px 4px 5px;
+	color: $white;
+	background-color: $red;
+	font-weight: 100;
+	h5.header {
+		text-transform: lowercase;
+		font-weight: 100;
+		font-family: $lato;
+	}
+}
+
+.event-favorite-container {
+	margin-bottom: 20px;
+
+	.event-favorite {
+		border-bottom: 2px solid $red;
+	}
+
+}
+
+.event-day {
+	margin-bottom: 20px;
+}
+
+.event {
+	padding: 8px 0 7px;
+}

@@ -8,12 +8,12 @@ module.exports = {
   devtool: 'source-map',
   entry: [
     
-    './client/app.js'
+    './client/index.js'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, '/public'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -39,9 +39,13 @@ module.exports = {
     // CSS
     { 
       test: /\.scss$/, 
-      include: path.join(__dirname, 'client'),
-      loader: 'style-loader!css-loader!stylus-loader'
-    }
+      include: [path.join(__dirname, 'client'), path.join(__dirname, 'styles')],
+      loaders: ['style', 'css?sourceMap', 'postcss?sourceMap', 'sass?sourceMap'],
+    },
+    // ICON FONT
+    { test: /\.svg$/, loader: 'url?limit=65000&mimetype=image/svg+xml&name=public/fonts/[name].[ext]' },
+    { test: /\.woff$/, loader: 'url?limit=65000&mimetype=application/font-woff&name=public/fonts/[name].[ext]' },
+    { test: /\.[ot]tf$/, loader: 'url?limit=65000&mimetype=application/octet-stream&name=public/fonts/[name].[ext]' },
     ]
   },
   resolve: {
@@ -57,18 +61,18 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'app/index.template.html',
+      template: 'client/index.template.html',
       filename: 'index.html',
       appMountId: 'main',
       inject: false,
       files: {
-        css: ['assets/main.css']
+        css: ['assets/main.css'],
+        js: ['assets/bundle.js'],
       }
     }),
     new webpack.DefinePlugin({
       "process.env": {
         "NODE_ENV": JSON.stringify('production'),
-        "BASE_URL": JSON.stringify(process.env.BASE_URL.toString()),
       }
     }),
     new ExtractTextPlugin('assets/main.css'),

@@ -12,5 +12,5 @@ public
 *.rdb
 *.swp
 
-
+server/config/index.js
 
